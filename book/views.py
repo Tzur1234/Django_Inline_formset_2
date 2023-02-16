@@ -9,6 +9,13 @@ from django.contrib import messages
 from django.utils import timezone
 from .forms import AuthorBooksFormset
 
+from core import settings
+from django.core.mail import send_mail
+
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
 class HomeView(TemplateView):
     # TemplateResponseMixin (attribute)
     template_name = 'home.html'
@@ -62,3 +69,22 @@ class AuthorBookEditView(SingleObjectMixin, FormView):
 
     def get_success_url(self):
         return reverse('books:author_detail', kwargs={'pk': self.object.pk})
+
+
+
+
+def index(request):
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        content = request.POST['content']
+        sender = request.POST['from_email']
+
+        send_mail(
+            subject,
+            content,
+            sender,
+            [env('RECIEVERS')]
+        )
+        return render(request, 'contact_email.html', {'message': 'thanks the email was send !'})
+    else:
+        return render(request, 'contact_email.html')
