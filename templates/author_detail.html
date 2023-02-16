@@ -1,10 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Home{% endblock %} 
 
-{% block title %}Home{% endblock %}
+{% block content%}
+<div class="row">
+  <h3>Author Detail</h3>
+  <hr />
+</div>
+<div class="row">
+  <div class="card" style="width: 18rem">
+    <img src="..." class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">{{author.name}}</h5>
+      <p class="card-text">
+        <ul class="list-group">
+        {% for book in author.author_book.all %}
+            <li class="list-group-item">
+                {{book.title}}
+            </li>
+        {% endfor %}
+        </ul>
+        
+      </p>
+      <a href="{% url 'books:author_edit' pk=author.id %}" class="btn btn-primary">Edit Author</a>
+      <a href="{% url 'books:home' %}" class="btn btn-primary">Home</a>
+    </div>
+  </div>
+</div>
 
 
-{% block content %}
-    <h3>Author Detail</h3><hr>
-
-    <a href="{% url 'home' %}" class="btn btn-primary w-100 pb-2">Home</a>
 {% endblock %}
