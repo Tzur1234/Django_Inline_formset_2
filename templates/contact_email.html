@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+
+{% block content %}
+    
+{% if message %}
+    <h1>{{message}}</h1>
+    <a href="{% url 'books:email'%}" class='btn btn-primary'>Back To Contact</a>
+{% else %}
+<h3>Contact</h3><hr>
+<form action="{% url 'books:email' %}" method="post">
+    {% csrf_token %}      
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" name="from_email" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlInput3" class="form-label">Subject</label>
+        <input type="text" class="form-control" id="exampleFormControlInput3" name="subject" placeholder="I want to..">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"></textarea>
+    </div>
+
+    <input type="submit">
+</form>
+{% endif %}   
+{% endblock %}
