@@ -17,5 +17,9 @@ class Book(models.Model):
 class Author(models.Model):
     name = models.CharField(max_length=225, blank=False, null=False)
 
+    def get_absolute_url(self):
+        ''' return url to redirect the user after CreateAuth'''
+        return reverse('books:author_detail', kwargs={'pk':self.pk})
+
     def __str__(self):
         return self.name

@@ -3,12 +3,15 @@
 {% block content %}
 <div class="row"><h3>Author-List</h3><hr></div>
 
-<div class="row">
-    <ul class="list-group w-100">
+<div class="row d-flex justify-content-center">
+    <ul class="list-group">
         {% for author in data %}
                 <li class="list-group-item">
-                    ID:{{author.id}} <br>
-                    NAME:{{author.name}}
+                    <a href="{% url 'books:author_detail' author.id %}">
+                        ID:{{author.id}} <br>
+                         NAME:{{author.name}}
+                    </a>
+                    
                 </li>
         {% endfor %}
     </ul>
