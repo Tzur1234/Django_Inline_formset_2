@@ -12,9 +12,12 @@ from .forms import AuthorBooksFormset
 from core import settings
 from django.core.mail import send_mail
 
+
+from django.contrib.auth.decorators import login_required
 import environ
 env = environ.Env()
 environ.Env.read_env()
+
 
 class HomeView(TemplateView):
     # TemplateResponseMixin (attribute)
@@ -72,7 +75,7 @@ class AuthorBookEditView(SingleObjectMixin, FormView):
 
 
 
-
+@login_required 
 def index(request):
     if request.method == 'POST':
         subject = request.POST['subject']
